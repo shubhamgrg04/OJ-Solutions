@@ -15,11 +15,6 @@ bool smallerfirst(pi a, pi b) {
 	return false;
 }
 
-bool smallersecond(pi a, pi b) {
-	if(a.second < b.second) return true;
-	return false;
-}
-
 int search(int a, vector<pi> &sort_first){
 	int low = 0, high = sort_first.size(), mid;
 	while(low<high){
@@ -34,20 +29,19 @@ int search(int a, vector<pi> &sort_first){
 int main(){
 	int n;
 	while((n = in()) != -1) {
-		vector<pi> sort_first(n), sort_second(n);
+		vector<pi> sort_first(n);
 		vector<int> mem(n+1); mem[n] = 0;
 		int ans = 0;
 		for(int i=0; i<n; i++){
 			int start = in(), end = in();
 			sort_first[i] = make_pair(start,end);
-			sort_second[i] = make_pair(start,end);
 		}
 		sort(sort_first.begin(), sort_first.end(), smallerfirst);
 
 		for(int i=n-1; i>=0; i--){
 			mem[i] = (((i<n-1)?mem[i+1]:0) + 1 + mem[search(sort_first[i].second, sort_first)]) % MOD;
 		}
-		cout << ans << endl;
+		cout << mem[0] << '\n';
 	}
 	return 0;
 }
