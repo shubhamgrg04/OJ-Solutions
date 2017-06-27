@@ -1,6 +1,7 @@
 #include  <iostream>
 #include <vector>
 #include <algorithm>
+#include <math.h>
 
 using namespace std;
 
@@ -22,13 +23,22 @@ bool smallersecond(pi a, pi b) {
 
 int search(int a, vector<pi> &sort_first){
 	int low = 0, high = sort_first.size(), mid;
-	while(low<high){
+	while(low<=high){
 		mid = (low+high)/2;
 		if(sort_first[mid].first==a) break;
-		if(sort_first[mid].first>a && ((mid>0)?sort_first[mid-1].first<a:1) ) break;
+		//if(sort_first[mid].first>a && ((mid>0)?sort_first[mid-1].first<a:1) ) break;
 		if(sort_first[mid].first<a) low = mid+1;
 		if(sort_first[mid].first>a) high = mid-1;
 	}
+	return mid;
+}
+
+void displayin8(int a){
+	for(int i=7; i>0; i--){
+		if((int)(a/pow(10,i))>0) break;
+		cout << '0';
+	}
+	cout << a << endl;
 }
 
 int main(){
@@ -47,7 +57,7 @@ int main(){
 		for(int i=n-1; i>=0; i--){
 			mem[i] = (((i<n-1)?mem[i+1]:0) + 1 + mem[search(sort_first[i].second, sort_first)]) % MOD;
 		}
-		cout << ans << endl;
+		displayin8(mem[0]);
 	}
 	return 0;
 }
