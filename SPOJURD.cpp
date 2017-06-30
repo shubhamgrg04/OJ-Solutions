@@ -7,10 +7,10 @@ inline int in(){int x; cin >> x; return x;}
 void calculatemultis(string &n1, string multis[]){
 	for(int i=1; i<=9; i++){
 		int carry = 0;
-		multis[i] = "0";
+		multis[i] = "";
 		for(int j=n1.length()-1; j>=0; j--){
 			int res = (n1[j] - '0') * i;
-			multis[i] = ((char)(((carry + res)%10) + '0')) + multis[i];
+			multis[i] = ((char)(((carry+res)%10) + '0')) + multis[i];
 			carry = res/10;
 		}
 	}

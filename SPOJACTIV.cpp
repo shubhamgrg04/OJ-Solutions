@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include <math.h>
+#include <sstream>
 
 using namespace std;
 
@@ -18,17 +19,17 @@ int search(int i, vector<pi> &sort_first){
 		//if(sort_first[mid].first==a) break;
 		if(sort_first[mid].first>=sort_first[i].second && ((mid>low)?(sort_first[mid-1].first<sort_first[i].second):(1)) ) break;
 		if(sort_first[mid].first<sort_first[i].second) low = mid+1;
-		if(sort_first[mid].first>sort_first[i].second) high = mid-1;
+		if(sort_first[mid].first>=sort_first[i].second) high = mid-1;
 	}
 	return mid;
 }
 
 void displayin8(int a){
-	for(int i=7; i>0; i--){
-		if((int)(a/pow(10,i))>0) break;
-		cout << '0';
-	}
-	cout << a << endl;
+	stringstream convert;
+	convert << a;
+	string num = convert.str();
+	while(num.length()<8) num = '0' + num;
+	cout << num << endl;
 }
 
 int main(){
