@@ -43,18 +43,16 @@ int main(){
 	map<int, int> mincost;
 
 	for(int i=0,j=0; i<n; i++){
-		int remcost = x - lsorted[i].r + lsorted[i].l -1;
-		if(remcost>0) {
-			for(; rsorted[j].r<lsorted[i].l; j++){
-				if(mincost.find(remcost)!=mincost.end()){
-					if(mincost[remcost]>rsorted[j].c)
-						mincost[remcost] = rsorted[j].c;
-				} else 
-					mincost[remcost] = rsorted[j].c;
-			}
-			if(mincost.find(remcost)!=mincost.end()){
-				ans = min(ans, lsorted[i].c + mincost[remcost]);
-			}
+		int remtime = x-lsorted[i].r+lsorted[i].l-1;
+		for(; rsorted[j].r<lsorted[i].l; j++){
+			int dur = rsorted[j].r - rsorted[j].l + 1;
+			if(mincost.find(dur)!=mincost.end())
+				mincost[dur] = min(mincost[dur], rsorted[j].c);
+			else 
+				mincost[dur] = rsorted[j].c;
+		}
+		if(mincost.find(remtime)!=mincost.end()){
+			ans = min(ans, lsorted[i].c + mincost[remtime]);
 		}
 	}
 
